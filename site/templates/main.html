@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        {% load static %}
+        <title>{% block title %}{% endblock title %}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="title" content="SkillFactory: project NewsPortal" />
+        <meta name="author" content="Bit-trade of company FORin" />
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
+    </head>
+<body>
+<div id="pseudo-wrap1"></div>
+<div id="pseudo-wrap2"></div>
+<!-- Begin Wrapper -->
+<div id="wrap">
+	<!--Begin Header -->
+	<div id="header">
+        {% block header %}{% endblock header %}
+	</div>
+	<!--End Header -->
+<nav>
+<label for="show-menu" class="responsive">&#9776; Menu</label>
+<input type="checkbox" id="show-menu" role="button">
+		<ul id="menu">
+			<!--<li><a class="current" href="/" title="Home">Home</a></li>-->
+            <li><a href="/" title="Home">Home</a></li>
+			<li><a href="/news/" title="Новости">Новости</a></li>
+            <li><a href="/articles/" title="Статьи">Статьи</a></li>
+			<li><a href="/authorization/" title="Вход/Регистрация">Вход/Регистрация</a></li>
+            <li><a href="/admin/" title="Admin">Admin</a></li>
+			<li><a href="/pages/page1/" title="Flatpages">Flatpages</a></li>
+            <li><a href="/news/search/" title="Поиск">Поиск</a></li>
+		</ul>
+</nav>
+	<!-- Begin Content -->
+	<div id="content">
+        <div class="post">
+        {% block content %}{% endblock content %}
+   {# Пагинация #}
+   <h4>
+   {# Информация о предыдущих страницах #}
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {# Информация о текущей странице #}
+   {{ page_obj.number }}
+
+   {# Информация о следующих страницах #}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+   </h4>
+        </div>
+	</div>
+	<!--End Content -->
+	<!--Begin Footer -->
+	<div id="footer">
+        {% block footer %}
+	    <div class="notice">&copy; Copyright <a title="FORin" href="http://www.forin.biz">FORin</a>. All rights reserved.</div>
+        {% endblock footer %}
+	</div>
+	<!--End Footer -->
+</div>
+<!-- End Wrapper -->
+<!-- Begin Creative Commons Attribution -->
+<!-- Under the CC-NC License, you need to leave this untouched and intact. It's unobtrusive anyway. -->
+<div id="attribution">
+    {% block attribution %}
+        <span>A <a title="Open Source" href="http://www.mlpdesign.net/free-css-templates.php">Free CSS Template</a> by
+        <a title="XHTML &amp; CSS by MLP Design" href="http://www.mlpdesign.net">MLP Design</a><br />
+        <a title="Licensed under Creative Commons Non-Commercial" href="http://creativecommons.org/licenses/by-nc/3.0/">Licensed under CC-NC 3.0</a></span>
+    {% endblock attribution %}
+</div>
+<!--End Creative Commons Attribution-->
+</body>
+</html>

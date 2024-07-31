@@ -1,0 +1,40 @@
+{% extends 'main.html' %}
+
+{% load censor_filters %}
+
+{% block title %}
+    {% if news %}
+        Новости портала
+    {% else %}
+        Новостей нет!
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+    <h1><a href="#" title="Новости портала">Новости портала</a></h1>
+    <p>Общее количество новостей: {{ news|length }}</p>
+{% endblock header %}
+
+{% block content %}
+    <button type="button" name="button" style="width: 80px; height:35px;">
+      <a href="create/" title="Создать">Создать</a>
+    </button><br><hr><br>
+    {% if news %}
+        {% for new in news %}
+		    <h2><a title="{{ new.title|censor }}" href="{{ new.id }}">{{ new.title|censor }}</a></h2>
+		    <span class="author">Posted by: <a href="#">{{ new.author.full_name }}</a> |
+            <a href="#">{{ new.date_creation|date:'d.m.y' }}</a> |
+            <a href="#">{{ new.comment_set.all.count }} comment(s)</a></span>
+		    <p>{{ new.text_post|censor|truncatewords:100 }}</p>
+        {% endfor %}
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}
+
+{#{% block footer %}#}
+{##}
+{#{% endblock footer %}#}
+
+{% block attribution %}
+{% endblock attribution %}

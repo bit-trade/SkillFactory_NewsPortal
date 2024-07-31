@@ -1,0 +1,214 @@
+>>> from np_post.models import Category, Author, Post, PostCategory, Comment
+>>> from django.contrib.auth.models import User
+
+>>> User.objects.create_user('Alex')
+>>> User.objects.create_user('Michael')
+>>> User.objects.create_user('User Vasya')
+>>> User.objects.create_user('User Petya')
+
+>>> alex = User.objects.get(id=2)
+>>> miha = User.objects.get(id=3)
+
+>>> Author.objects.create(full_name='Пушкин Александр Сергеевич', rating=10, user=alex)
+>>> Author.objects.create(full_name='Булгаков Михаил Афанасьевич', rating=0, user=miha)
+
+>>> Category.objects.create(name_cat='Новости')
+>>> Category.objects.create(name_cat='Технологии')
+>>> Category.objects.create(name_cat='Спорт')
+>>> Category.objects.create(name_cat='Наука')
+
+>>> Post.objects.create(title='Погранслужба Украины задержала 17 мужчин', text_post='Об этом сообщается в Telegram-канале \
+украинского ведомства. Мужчины ехали в микроавтобусе. Пограничники остановили транспорт в 200 м от границы с Венгрией. \
+Как отметили в Госпогранслужбе, пассажиры заплатили за переезд через границу от $3 тыс. до $12 тыс. Украинские правоохранители \
+устанавливают всех причастных к нелегальной схеме вывоза. Ранее издание The Guardian писало, что граждане Украины готовы \
+потратить последние сбережения, чтобы уехать из страны от мобилизации. В Госпогранслужбе Украины также рассказали, \
+что мужчина, заплативший $10 тыс. за помощь в незаконном выезде с Украины, утонул в Днестре.', selec_field='новость', author=alex)
+>>> Post.objects.create(title='30 лет назад российский футболист установил рекорд чемпионатов мира', text_post='Ровно \
+30 лет назад, 28 июня 1994 г., российский футболист установил рекорд чемпионатов мира, который никто не сумел превзойти \
+или повторить по сей день. Олег Саленко забил пять мячей в одном матче. Нападающий оформил пента-трик во встрече группового \
+этапа с Камеруном на стадионе «Стэнфорд Стэдиум» в США. Выдающееся выступление уроженца Санкт-Петербурга (тогда еще Ленинграда) \
+помогло нашей национальной команде одержать крупнейшую победу на чемпионатах мира. «Ведомости. Спорт» вспоминает рекорд \
+Саленко и рассказывают о том, как сложилась его карьера после ЧМ-1994. Саленко мог не сыграть на ЧМ-1994, а до турнира \
+не забил ни разу за сборную', selec_field='статья', author=miha)
+>>> Post.objects.create(title='Как узнать, как ты записан в телефоне у других людей: простые способы', text_post='Согласитесь, \
+всегда интересно узнать – как именно ты записан в контактах у своих друзей или коллег. И в таких ситуациях на помощь \
+придут специальные приложения, которые помогут определить, под каким именем значится конкретный номер в чужом списке \
+контактов.', selec_field='статья', author=miha)
+
+>>> post1 = Post.objects.get(id=1)
+>>> post2 = Post.objects.get(id=2)
+>>> post3 = Post.objects.get(id=3)
+>>> cat1 = Category.objects.get(id=1)
+>>> cat2 = Category.objects.get(id=2)
+>>> cat3 = Category.objects.get(id=3)
+>>> cat4 = Category.objects.get(id=4)
+>>> PostCategory.objects.create(post=post1, category=cat1)
+>>> PostCategory.objects.create(post=post1, category=cat3)
+>>> PostCategory.objects.create(post=post2, category=cat3)
+>>> PostCategory.objects.create(post=post2, category=cat1)
+>>> PostCategory.objects.create(post=post3, category=cat1)
+>>> PostCategory.objects.create(post=post3, category=cat2)
+>>> PostCategory.objects.create(post=post3, category=cat4)
+
+>>> vasya = User.objects.get(id=4)
+>>> petya = User.objects.get(id=5)
+>>> Comment.objects.create(text_comm='Это свидетельствует о решительных действиях правоохранительных органов в борьбе с преступностью.', post=post1, user=alex)
+>>> Comment.objects.create(text_comm='Задержание 17 человек в результате проведения полицейской операции является важным шагом в обеспечении общественной безопасности.', post=post1, user=miha)
+>>> Comment.objects.create(text_comm='Надеемся, что это задержание приведет к разоблачению преступной группировки и укреплению законопослушного общества.', post=post1, user=vasya)
+>>> Comment.objects.create(text_comm='Задержание 17 человек в результате проведения полицейской операции является важным шагом в обеспечении общественной безопасности. Это свидетельствует о решительных действиях правоохранительных органов в борьбе с преступностью. Надеемся, что это задержание приведет к разоблачению преступной группировки и укреплению законопослушного общества.', post=post1, user=petya)
+>>> Comment.objects.create(text_comm='30 лет назад российский футболист продемонстрировал выдающиеся спортивные достижения, установив рекорд, который продолжает впечатлять и вдохновлять поклонников футбола по всему миру.', post=post2, user=alex)
+>>> Comment.objects.create(text_comm='Этот подвиг стал частью богатого наследия российского футбола и останется в памяти поклонников этой увлекательной игры на долгие годы.', post=post2, user=miha)
+>>> Comment.objects.create(text_comm='Установление рекорда в футболе - это всегда знаковое событие, особенно если оно связано с чемпионатами мира.', post=post2, user=vasya)
+>>> Comment.objects.create(text_comm='Установление рекорда в футболе - это всегда знаковое событие, особенно если оно связано с чемпионатами мира. 30 лет назад российский футболист продемонстрировал выдающиеся спортивные достижения, установив рекорд, который продолжает впечатлять и вдохновлять поклонников футбола по всему миру. Этот подвиг стал частью богатого наследия российского футбола и останется в памяти поклонников этой увлекательной игры на долгие годы.', post=post2, user=petya)
+>>> Comment.objects.create(text_comm='Знание того, как тебя видят другие, может быть полезным не только для поддержания связи с окружающими, но и для понимания своего имиджа и влияния на окружающих.', post=post3, user=alex)
+>>> Comment.objects.create(text_comm='Статья подчеркивает важность внимания к деталям и осознанности в общении с другими людьми, а также показывает, что даже небольшие детали могут иметь значение в межличностных отношениях.', post=post3, user=miha)
+>>> Comment.objects.create(text_comm='Статья предоставляет интересную и важную информацию о том, как можно узнать, под каким именем тебя записали в телефоне у других людей.', post=post3, user=vasya)
+>>> Comment.objects.create(text_comm='Это также может помочь в создании более эффективного и профессионального общения.', post=post3, user=petya)
+
+>>> posts = Post.objects.all()
+>>> posts
+<QuerySet [<Post: Post object (1)>, <Post: Post object (2)>, <Post: Post object (3)>]>
+
+>>> post = posts.get(id=1)
+>>> post.like
+<bound method Post.like of <Post: Post object (1)>>
+>>> post.save()
+>>> post = Post.objects.get(id=1)
+>>> post.like()
+>>> posts
+<QuerySet [<Post: Post object (1)>, <Post: Post object (2)>, <Post: Post object (3)>]>
+>>> for post in posts:
+... post.like()
+  File "<console>", line 2
+    post.like()
+    ^^^^
+IndentationError: expected an indented block after 'for' statement on line 1
+>>> for post in posts: post.like()
+...
+>>> for post in posts: post.like()
+...
+>>> for post in posts: post.like()
+...
+>>> while i <= 10: for post in posts: post.like()
+  File "<console>", line 1
+    while i <= 10: for post in posts: post.like()
+                   ^^^
+SyntaxError: invalid syntax
+>>> while i <= 10:
+... for post in posts: post.like()
+  File "<console>", line 2
+    for post in posts: post.like()
+    ^^^
+IndentationError: expected an indented block after 'while' statement on line 1
+>>> for i in range(10): for post in posts: post.like()
+  File "<console>", line 1
+    for i in range(10): for post in posts: post.like()
+                        ^^^
+SyntaxError: invalid syntax
+>>> post.like() for post in posts for i in range(10)
+  File "<console>", line 1
+    post.like() for post in posts for i in range(10)
+                ^^^
+SyntaxError: invalid syntax
+>>> for post in posts:
+...     post.like()
+...
+...
+>>>
+>>> while i <= 10:
+...     for post in posts:
+...         post.dislike()
+...     i += 1
+...
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'i' is not defined
+>>> for i in range(10):
+...     for post in posts:
+...         post.dislike()
+...
+>>> for i in range(10):
+...     for post in posts:
+...         post.like()
+...
+>>> comments = Comment.objects.all()
+>>> for i in range(8):
+...     for comment in comments:
+...         comment.like()
+...
+>>> user_comm = Comment.objects.filter(user=alex)
+>>> user_comm
+<QuerySet [<Comment: Comment object (1)>, <Comment: Comment object (5)>, <Comment: Comment object (9)>]>
+>>> for comment in Comment.objects.filter(user=alex):
+...     comment.dislike()
+...
+>>> for comment in Comment.objects.filter(user=miha):
+...     comment.dislike()
+...
+>>> for comment in Comment.objects.filter(user=miha):
+...     comment.dislike()
+...
+>>> for comment in Comment.objects.filter(user=petya):
+...     comment.dislike()
+...
+>>> for comment in Comment.objects.filter(user=petya):
+...     comment.dislike()
+...
+>>> for comment in Comment.objects.filter(user=petya):
+...     comment.dislike()
+...
+>>> Post.objects.fi
+Post.objects.filter(  Post.objects.first()
+>>> Post.objects.get(id=2).dislike()
+>>>
+>>> alex = Author.objects.get(id=1)
+>>> alex.full_name
+'Пушкин Александр Сергеевич'
+>>> miha = Author.objects.get(id=2)
+>>> miha.full_name
+'Булгаков Михаил Афанасьевич'
+>>> alex.update_rating()
+>>> alex.rating
+41
+>>> miha.rating
+0
+>>> miha.update_rating()
+>>> miha.rating
+73
+>>>
+>>> author = Author.objects.order_py('rating').last()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Manager' object has no attribute 'order_py'. Did you mean: 'order_by'?
+>>> author = Author.objects.order_by('rating').last()
+>>> print(author.full_name, author.user.username, author.rating)
+Булгаков Михаил Афанасьевич Michael 73
+>>> best_post = Post.objects.order_by('rating').last()
+>>> bets_post
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+NameError: name 'bets_post' is not defined. Did you mean: 'best_post'?
+>>> best_post
+<Post: Post object (1)>
+>>> print(best_post.date_creation, best_post.author.full_name, best_post.author.user.username, best_post
+best_post
+>>> print(best_post.date_creation, best_post.author.full_name, best_post.author.user.username, best_post.rating, best_post.title, best_post.pre
+best_post.prepare_database_save(  best_post.preview()
+>>> print(best_post.date_creation, best_post.author.full_name, best_post.author.user.username, best_post.rating, best_post.title, best_post.preview())
+2024-06-30 17:54:22.381919+00:00 Пушкин Александр Сергеевич Alex 5 Погранслужба Украины задержала 17 мужчин при попытке бежать в Венгрию Об этом сообщается в Telegram-канале украинского ведомства. Мужчины ехали в микроавтобусе. Пограничники остановили транспорт...
+>>>
+>>> for commetn in best_post.comment_set.all():
+...     print(comment.data_add_comm, comment.user.username, comment.rating, comment.text_comm)
+...
+Traceback (most recent call last):
+  File "<console>", line 2, in <module>
+NameError: name 'comment' is not defined. Did you mean: 'Comment'?
+>>> for comment in best_post.comment_set.all():
+...     print(comment.data_add_comm, comment.user.username, comment.rating, comment.text_comm)
+...
+2024-07-01 14:06:13.189396+00:00 Alex 7 Это свидетельствует о решительных действиях правоохранительных органов в борьбе с преступностью.
+2024-07-01 14:06:55.190039+00:00 Michael 6 Задержание 17 человек в результате проведения полицейской операции является важным шагом в обеспечении общественной безопасности.
+2024-07-01 14:07:34.495185+00:00 User Vasya 8 Надеемся, что это задержание приведет к разоблачению преступной группировки и укреплению законопослушного общества.
+2024-07-01 14:08:23.772080+00:00 User Petya 5 Задержание 17 человек в результате проведения полицейской операции является важным шагом в обеспечении общественной безопасности. Это свидетельствует о решительных действиях правоохранительных органов в борьбе с преступностью. Надеемся, что это задержание приведет к разоблачению преступной группировки и укреплению законопослушного общества.
+>>>
+

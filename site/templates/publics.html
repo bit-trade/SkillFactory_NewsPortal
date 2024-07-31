@@ -1,0 +1,34 @@
+{% extends 'main.html' %}
+
+{% load censor_filters %}
+
+{% block title %}
+    {% if publics %}
+        Публикации портала
+    {% else %}
+        Публикаций нет!
+    {% endif %}
+{% endblock title %}
+
+{% block header %}
+    <h1><a href="#" title="Публикации портал">Публикации портал</a></h1>
+    <p>Всего публикаций: {{ publics|length }}</p>
+{% endblock header %}
+
+{% block content %}
+    {% if publics %}
+        {% for public in publics %}
+		    <h2><a title="{{ public.title|censor }}" href="#">{{ public.title|censor }}</a></h2>
+		    <span class="author">Posted by: <a href="#">{{ public.author.full_name }}</a> |
+            <a href="#">{{ public.date_creation|date:'d.m.y' }}</a> |
+            <a href="#">{{ public.publication_type }}</a> |
+            <a href="#">{{ public.comment_set.all.count }} comment(s)</a></span>
+		    <p>{{ public.text_post|censor|truncatewords:80 }}</p>
+        {% endfor %}
+    {% else %}
+        <h2>Публикаций нет!</h2>
+    {% endif %}
+{% endblock content %}
+
+{% block attribution %}
+{% endblock attribution %}

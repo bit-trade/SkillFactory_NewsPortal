@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% block title %}Simple SignUp/SignIn app{% endblock title %}
+
+{% block header %}
+    <h1><a href="/authorization/">Simple SignUp/SignIn app</a></h1>
+{% endblock header %}
+
+
+{% block content %}
+<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<br>
+<button> <a href="/accounts/logout/">Выйти</a> </button>
+{% if is_not_authors %}
+<button> <a href="/sign/me_author/">Хочу быть автором</a> </button>
+{% endif %}
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block attribution %}
+{% endblock attribution %}

@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+
+{% load censor_filters %}
+
+{% block title %}
+{{ public_detail.title|censor }}
+{% endblock title %}
+
+{% block header %}
+    <h1><a href="#" title="{{ public_detail.title|censor }}">{{ public_detail.title|censor }}</a></h1>
+{% endblock header %}
+
+{% block content %}
+    <button type="button" name="button" style="width: 120px; height:35px;">
+      <a href="{{ public_detail.id }}/edit/" title="Редактировать">Редактировать</a>
+    </button>
+    <button type="button" name="button" style="width: 80px; height:35px;">
+      <a href="{{ public_detail.id }}/delete/" title="Удалить">Удалить</a>
+    </button><br><hr><br>
+    <h2>{{ public_detail.title|censor }}</h2>
+    <h3>Дата публикации: {{ public_detail.date_creation|date:'d.m.y' }}</h3>
+    <p>{{ public_detail.text_post|censor }}</p>
+{% endblock content %}
+
+{#{% block footer %}#}
+{##}
+{#{% endblock footer %}#}
+
+{% block attribution %}
+{% endblock attribution %}

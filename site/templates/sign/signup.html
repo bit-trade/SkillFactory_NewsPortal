@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% block title %}Регистрация на портале{% endblock title %}
+
+{% block header %}
+<h1>Регистрация на портале</h1>
+{% endblock header %}
+
+{% block content %}
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Продолжить">
+</form>
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block attribution %}
+{% endblock attribution %}
