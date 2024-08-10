@@ -5,7 +5,7 @@ from .models import Post
 class PublicForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'text_post', 'author']
+        fields = ['title', 'text_post', 'author', 'category']
 
 
 class LoginForm(forms.Form):

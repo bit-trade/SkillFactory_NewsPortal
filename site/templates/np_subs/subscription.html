@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+{% block title %}
+    {% if subs_detail.subscribed %}Вы оформили подписку{% else %}У вас нет оформленных подписок{% endif %}
+{% endblock title %}
+
+{% block header %}
+    <h1>{% if subs_detail.subscribed %}Вы оформили подписку{% else %}У вас нет оформленных подписок{% endif %}</h1>
+{% endblock header %}
+
+
+{% block content %}
+    {% if subs_detail.subscribed %}
+    <button type="button" name="button" style="width: 120px; height:35px;">
+      <a href="/subs/{{ subs_detail.id }}/edit/" title="Редактировать">Редактировать</a>
+    </button><br><hr><br>
+    <h2>{{ subs_detail.first_name }} {{ subs_detail.last_name }} вы подписаны на разделы портала:</h2>
+    <h3>
+    {% for cat in subs_detail.category.all %}
+        {{ cat.name_cat }}<br>
+    {% endfor %}
+    </h3>
+    {% else %}
+        <h2>У вас нет оформленных подписок</h2>
+    {% endif %}
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block attribution %}
+{% endblock attribution %}

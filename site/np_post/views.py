@@ -54,7 +54,7 @@ class SearchList(ListView):
 
 class NewsList(ListView):
     model = Post
-    queryset = Post.objects.filter(publication_type=ARTICNEWS['news'])
+    queryset = Post.objects.filter(publication_type=ARTICNEWS.NEWS)
     ordering = '-date_creation'
     template_name = 'news.html'
     context_object_name = 'news'
@@ -69,13 +69,13 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.publication_type = ARTICNEWS['news']
+        post.publication_type = ARTICNEWS.NEWS
         return super().form_valid(form)
 
 
 class ArticlesList(ListView):
     model = Post
-    queryset = Post.objects.filter(publication_type=ARTICNEWS['article'])
+    queryset = Post.objects.filter(publication_type=ARTICNEWS.ARTICLE)
     ordering = '-date_creation'
     template_name = 'articles.html'
     context_object_name = 'articles'
@@ -90,5 +90,5 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.publication_type = ARTICNEWS['article']
+        post.publication_type = ARTICNEWS.ARTICLE
         return super().form_valid(form)
