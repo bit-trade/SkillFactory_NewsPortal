@@ -33,9 +33,10 @@ class Author(models.Model):
 
 class Category(models.Model):
     name_cat = models.CharField(max_length=100, unique=True)
+    description = models.TextField(max_length=400, blank=True)
 
     def __str__(self):
-        return self.name_cat.title()
+        return f'{self.name_cat.title()}'
 
 
 class Post(models.Model):

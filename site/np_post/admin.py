@@ -7,8 +7,13 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name_cat', 'description')
+    list_display_links = ('name_cat',)
+
+
 admin.site.register(Author)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Comment)
 admin.site.register(PostCategory)

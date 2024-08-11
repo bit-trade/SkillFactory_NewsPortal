@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from np_post.views import PublicList, SearchList
+from np_post.views import PublicList, SearchList, CategoryList
 
 urlpatterns = [
     path('', PublicList.as_view(), name='home'),
+    path('categories/', CategoryList.as_view(), name='categories'),
     path('authorization/', include('protect.urls')),
     path('sign/', include('sign.urls')),
     path('accounts/', include('allauth.urls')),

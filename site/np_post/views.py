@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
-from .models import Post
+from .models import Post, Category
 from .filters import PublicFilter
 from .forms import PublicForm
 from .consts import ARTICNEWS
@@ -13,6 +13,12 @@ class PublicList(ListView):
     template_name = 'publics.html'
     context_object_name = 'publics'
     paginate_by = 10
+
+
+class CategoryList(ListView):
+    model = Category
+    template_name = 'categories.html'
+    content_type = 'categories'
 
 
 class PublicDetail(DetailView):
@@ -92,3 +98,4 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
         post = form.save(commit=False)
         post.publication_type = ARTICNEWS.ARTICLE
         return super().form_valid(form)
+
