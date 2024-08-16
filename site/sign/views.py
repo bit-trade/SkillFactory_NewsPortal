@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.views.generic.edit import CreateView
 from django.shortcuts import redirect
 from .models import BaseRegisterForm
+from np_post.models import Category
 
 
 class BaseRegisterView(CreateView):
@@ -18,3 +19,10 @@ def me_author(request):
     if not request.user.groups.filter(name='authors').exists():
         authors_group.user_set.add(user)
     return redirect('/')
+
+@login_required
+def subscription(request, section_id):
+    user = request.user
+    section = Category.objects.get(pk=section_id)
+    section.user.add(user)
+    return redirect('/authorization/')
