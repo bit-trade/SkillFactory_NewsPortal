@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block header %}<h1>Удаление раздела</h1>{% endblock header %}
+
+{% block content %}
+    <h2>Удаляем?<br><br>"{{ object.name_cat }}"</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete" />
+    </form>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% block attribution %}{% endblock attribution %}

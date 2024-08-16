@@ -16,11 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from np_post.views import PublicList, SearchList, CategoryList
+from np_post.views import PublicList, SearchList
 
 urlpatterns = [
     path('', PublicList.as_view(), name='home'),
-    path('categories/', CategoryList.as_view(), name='categories'),
+    path('categories/', include('np_post.urls')),
     path('authorization/', include('protect.urls')),
     path('sign/', include('sign.urls')),
     path('accounts/', include('allauth.urls')),
@@ -29,5 +29,5 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
     path('news/', include('np_post.urls_news')),
     path('articles/', include('np_post.urls_articles')),
-    path('subs/', include('np_subs.urls')),
+    # path('subs/', include('np_subs.urls')),
 ]

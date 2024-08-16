@@ -1,7 +1,7 @@
 {% extends 'main.html' %}
 
 {% block title %}
-    {% if categories %}
+    {% if sections %}
         Разделы портала
     {% else %}
         Разделы отсутствуют на портале!
@@ -10,19 +10,19 @@
 
 {% block header %}
     <h1><a href="#" title="Разделы портала">Разделы портала</a></h1>
-    <p>Всего: {{ categories|length }}</p>
+    <p>Всего: {{ sections|length }}</p>
 {% endblock header %}
 
 {% block content %}
-    {% if categories %}
-        {% for cat in categories %}
+    {% if sections %}
+        <button type="button" name="button">
+            <a href="{% url 'section_create' %}" title="Создать раздел">Создать раздел</a>
+        </button>
+        <br><hr><br>
+        {% for cat in sections %}
             <h2><a title="{{ cat.name_cat }}" href="#">{{ cat.name_cat }}</a></h2>
             <h3>{{ cat.description }}</h3>
         {% endfor %}
-        <br><hr><br>
-        <button type="button" name="button">
-        <a href="/subs/create/" title="Оформить подписку">Оформить подписку</a>
-        </button>
     {% else %}
         <h2>Разделы отсутствуют на портале</h2>
     {% endif %}

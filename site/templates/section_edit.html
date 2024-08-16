@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block header %}{% endblock header %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save" />
+    </form>
+{% endblock content %}
+
+{% block footer %}{% endblock footer %}
+
+{% block attribution %}{% endblock attribution %}
