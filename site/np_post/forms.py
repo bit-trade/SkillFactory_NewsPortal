@@ -1,4 +1,5 @@
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 from django import forms
 from .models import Post, Category
 
@@ -8,14 +9,17 @@ class PublicForm(forms.ModelForm):
         model = Post
         fields = ['title', 'text_post', 'author', 'category']
 
-    # def sending_mail(self, user):
-    #     send_mail(
-    #         subject='',
-    #         message='',
-    #         from_email='',
-    #         recipient_list=[],
-    #     )
-    #     self.cleaned_data['text_post'] = self.cleaned_data['text_post']
+    def send_email(self):
+        print(type(self.cleaned_data['category']), self.cleaned_data['category'], sep='\n\n')
+        # html_content = render_to_string(template_name='send_new_post.html', context={'new_post': new_post,})
+        # msg = EmailMultiAlternatives(
+        #     subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
+        #     body=appointment.message,
+        #     from_email='peterbadson@yandex.ru',
+        #     to=['skavik46111@gmail.com'],
+        # )
+        # msg.attach_alternative(html_content, "text/html")
+        # msg.send()
 
 
 class LoginForm(forms.Form):

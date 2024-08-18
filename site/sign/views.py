@@ -21,8 +21,11 @@ def me_author(request):
     return redirect('/')
 
 @login_required
-def subscription(request, section_id):
+def subs_me(request, section_id):
     user = request.user
-    section = Category.objects.get(pk=section_id)
+    section = Category.objects.get(id=section_id)
     section.user.add(user)
+    if not section.subscribed:
+        section.subscribed = True
+
     return redirect('/authorization/')

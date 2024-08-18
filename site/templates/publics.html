@@ -23,7 +23,7 @@
             <a href="#">{{ public.date_creation|date:'d.m.y' }}</a> |
             <a href="#">{{ public.publication_type }}</a> |
             {% for category in public.category.all %}
-                <a href="{% url 'sections' %}">{{ category.name_cat }}</a>  |
+                <a href="#">{{ category.name_cat }}</a>  |
             {% endfor %}
             <a href="#">{{ public.comment_set.all.count }} comment(s)</a></span>
 		    <p>{{ public.text_post|censor|truncatewords:80 }}</p>

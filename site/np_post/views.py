@@ -56,15 +56,6 @@ class SectionUpdate(PermissionRequiredMixin, UpdateView):
     model = Category
     template_name = 'section_edit.html'
 
-    def form_valid(self, form):
-        user = User.objects.get(username=self.request.user)
-        section = form.save(commit=False)
-        section.user.add(user)
-        if not section.subscribed:
-            section.subscribed = True
-
-        return super().form_valid(form)
-
 
 class PublicDelete(PermissionRequiredMixin, DeleteView):
     permission_required = ('np_post.delete_post',)
@@ -112,13 +103,9 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     template_name = 'public_edit.html'
 
     def form_valid(self, form):
-        user = User.objects.get(username=self.request.user)
         post = form.save(commit=False)
         post.publication_type = ARTICNEWS.NEWS
-        # post.category.subs_category.
-        # subscription = user.subs_user.subscribed
-        # if subscription:
-        #     form.sending_mail()
+        form.send_email()
         return super().form_valid(form)
 
 
