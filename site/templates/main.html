@@ -18,6 +18,8 @@
         {% block header %}{% endblock header %}
 	</div>
 	<!--End Header -->
+{% load cache %}
+{% cache 120 navigation %}
 <nav>
 <label for="show-menu" class="responsive">&#9776; Menu</label>
 <input type="checkbox" id="show-menu" role="button">
@@ -32,6 +34,7 @@
             <li><a href="/news/search/" title="Поиск">Поиск</a></li>
 		</ul>
 </nav>
+{% endcache %}
 	<!-- Begin Content -->
 	<div id="content">
         <div class="post">
@@ -62,6 +65,7 @@
         </div>
 	</div>
 	<!--End Content -->
+{% cache 120 footer %}
 	<!--Begin Footer -->
 	<div id="footer">
         {% block footer %}
@@ -69,8 +73,10 @@
         {% endblock footer %}
 	</div>
 	<!--End Footer -->
+{% endcache %}
 </div>
 <!-- End Wrapper -->
+{% cache 120 attribution %}
 <!-- Begin Creative Commons Attribution -->
 <!-- Under the CC-NC License, you need to leave this untouched and intact. It's unobtrusive anyway. -->
 <div id="attribution">
@@ -81,5 +87,6 @@
     {% endblock attribution %}
 </div>
 <!--End Creative Commons Attribution-->
+{% endcache %}
 </body>
 </html>

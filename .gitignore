@@ -1,4 +1,5 @@
 .idea/
 Temp/
 site/news_portal/.env
+site/cache_files/*
 

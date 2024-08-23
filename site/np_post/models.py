@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.cache import cache
 from django.contrib.auth.models import User
 from django.urls import reverse
 
@@ -78,7 +79,12 @@ class Post(models.Model):
         self.save()
 
     def get_absolute_url(self):
+        # return f'/news/{self.id}'
         return reverse('public_detail', args=[str(self.id)])
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        cache.delete(f'post-{self.pk}')
 
 
 class PostCategory(models.Model):

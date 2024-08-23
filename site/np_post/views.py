@@ -2,6 +2,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.core.cache import cache
 from django.urls import reverse_lazy
 from .models import Post, Category
 from .filters import PublicFilter
@@ -27,6 +28,15 @@ class PublicDetail(DetailView):
     model = Post
     template_name = 'public_detail.html'
     context_object_name = 'public_detail'
+    queryset = Post.objects.all()
+
+    def get_object(self, *args, **kwargs):
+        obj = cache.get(f'post-{self.kwargs["pk"]}',None)
+        if not obj:
+            obj = super().get_object(queryset=self.queryset)
+            cache.set(f'post-{self.kwargs["pk"]}', obj)
+
+        return obj
 
 
 class SectionDetail(LoginRequiredMixin, DetailView):

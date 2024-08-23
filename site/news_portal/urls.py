@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from np_post.views import PublicList, SearchList
+from django.views.decorators.cache import cache_page
 
 urlpatterns = [
-    path('', PublicList.as_view(), name='home'),
+    path('', cache_page(60)(PublicList.as_view()), name='home'),
     path('categories/', include('np_post.urls')),
     path('authorization/', include('protect.urls')),
     path('sign/', include('sign.urls')),
