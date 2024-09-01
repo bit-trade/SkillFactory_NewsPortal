@@ -115,7 +115,7 @@ class NewsCreate(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.publication_type = ARTICNEWS.NEWS
-        # form.send_email()
+        form.send_email()
         return super().form_valid(form)
 
 

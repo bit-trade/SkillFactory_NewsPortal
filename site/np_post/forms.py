@@ -2,6 +2,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django import forms
 from .models import Post, Category
+from news_portal.secret import mail_user
+from .tasks import clear_list
 
 
 class PublicForm(forms.ModelForm):
@@ -10,16 +12,20 @@ class PublicForm(forms.ModelForm):
         fields = ['title', 'text_post', 'author', 'category']
 
     def send_email(self):
-        print(type(self.cleaned_data['category']), self.cleaned_data['category'], sep='\n\n')
-        # html_content = render_to_string(template_name='send_new_post.html', context={'new_post': new_post,})
-        # msg = EmailMultiAlternatives(
-        #     subject=f'{appointment.client_name} {appointment.date.strftime("%Y-%M-%d")}',
-        #     body=appointment.message,
-        #     from_email='peterbadson@yandex.ru',
-        #     to=['skavik46111@gmail.com'],
-        # )
-        # msg.attach_alternative(html_content, "text/html")
-        # msg.send()
+        recipient_list = []
+        for c in self.cleaned_data['category'].all():
+            for u in c.user.all():
+                recipient_list.append(u.email)
+
+        html_content = render_to_string(template_name='send_new_post.html', context={'new_post': self.cleaned_data})
+        msg = EmailMultiAlternatives(
+            subject=f'{self.cleaned_data['title']} {self.cleaned_data['text_post']}',
+            body=self.cleaned_data['text_post'],
+            from_email=mail_user,
+            to=clear_list(recipient_list),
+        )
+        msg.attach_alternative(html_content, "text/html")
+        msg.send()
 
 
 class LoginForm(forms.Form):

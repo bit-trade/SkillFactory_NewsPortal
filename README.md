@@ -1,1 +1,1 @@
-# SkillFactory_NewsPortal
+# SkillFactory: News Portal
