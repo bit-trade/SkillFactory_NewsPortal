@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.flatpages',
     'np_post',
-    # 'np_subs',
+    'np_post.apps.NpPostConfig'
     'django_filters',
     'sign',
     'protect',
