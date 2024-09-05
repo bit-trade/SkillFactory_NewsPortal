@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        {% load static %}
+        <title>
+            {% block title %}Анонс публикаций за неделю{% endblock title %}
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="title" content="SkillFactory: project NewsPortal" />
+        <meta name="author" content="Bit-trade of company FORin" />
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
+    </head>
+<body>
+<div id="pseudo-wrap1"></div>
+<div id="pseudo-wrap2"></div>
+<!-- Begin Wrapper -->
+<div id="wrap">
+	<!--Begin Header -->
+	<div id="header">
+        {% block header %}Анонс публикаций за неделю{% endblock header %}
+	</div>
+	<!--End Header -->
+<nav>
+<label for="show-menu" class="responsive">&#9776; Menu</label>
+<input type="checkbox" id="show-menu" role="button">
+		<ul id="menu">
+            <li><a href="http://127.0.0.1:8000/" title="Home">Home</a></li>
+			<li><a href="http://127.0.0.1:8000/news/" title="Новости">Новости</a></li>
+            <li><a href="http://127.0.0.1:8000/articles/" title="Статьи">Статьи</a></li>
+			<li><a href="http://127.0.0.1:8000/authorization/" title="Вход/Регистрация">Вход/Регистрация</a></li>
+            <li><a href="http://127.0.0.1:8000/admin/" title="Admin">Admin</a></li>
+			<li><a href="http://127.0.0.1:8000/pages/page1/" title="Flatpages">Flatpages</a></li>
+            <li><a href="http://127.0.0.1:8000/news/search/" title="Поиск">Поиск</a></li>
+		</ul>
+</nav>
+	<!-- Begin Content -->
+	<div id="content">
+        <div class="post">
+            {% for post in posts %}
+            <h2>{{ post }}</h2>
+            {% endfor %}
+        </div>
+    </div>
+    <!--End Content -->
+	<!--Begin Footer -->
+	<div id="footer">
+        {% block footer %}
+	    <div class="notice">&copy; Copyright <a title="FORin" href="http://www.forin.biz">FORin</a>. All rights reserved.</div>
+        {% endblock footer %}
+	</div>
+	<!--End Footer -->
+</div>
+<!-- End Wrapper -->
+</body>
+</html>

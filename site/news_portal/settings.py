@@ -41,17 +41,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.flatpages',
-    'np_post',
-    'np_post.apps.NpPostConfig'
     'django_filters',
-    'sign',
-    'protect',
+    'django_apscheduler',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
     'allauth.socialaccount.providers.vk',
     'allauth.socialaccount.providers.google',
+    # 'np_post',
+    'np_post.apps.NpPostConfig',
+    'sign',
+    'protect',
+    'scheduler',
 ]
 
 MIDDLEWARE = [
@@ -177,3 +179,6 @@ CACHES = {
         'TIMEOUT': 180,
     }
 }
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
