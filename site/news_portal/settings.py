@@ -182,3 +182,78 @@ CACHES = {
 
 APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
 APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'for_debug': {'format': '%(asctime)-16s %(levelname)-8s %(message)s'},
+        'for_info': {'format': '%(asctime)-16s %(levelname)-8s %(module)s %(message)s'},
+        'for_warning': {'format': '%(asctime)-16s %(levelname)-8s %(message)s %(pathname)s'},
+        'for_error-critical': {'format': '%(asctime)-16s %(levelname)-8s %(message)s %(pathname)s %(exc_info)s'},
+    },
+    'filters': {
+        'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'},
+        'require_debug_false': {'()': 'django.utils.log.RequireDebugFalse'},
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'for_debug'
+        },
+        'for_general': {
+            'level': 'INFO',
+            'filters': ['require_debug_false'],
+            'class': 'logging.FileHandler',
+            'formatter': 'for_info',
+            'filename': 'logging/general.log',
+        },
+        'for_errors': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'formatter': 'for_error-critical',
+            'filename': 'logging/errors.log',
+        },
+        'for_security': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'formatter': 'for_info',
+            'filename': 'logging/security.log',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'for_warning',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'for_general'],
+            'propagate': True,
+        },
+        'django.request': {
+            'handlers': ['for_errors', 'mail_admins'],
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['for_errors', 'mail_admins'],
+            'propagate': True,
+        },
+        'django.template': {
+            'handlers': ['for_errors'],
+            'propagate': True,
+        },
+        'django.db.backends': {
+            'handlers': ['for_errors'],
+            'propagate': True,
+        },
+        'django.security': {
+            'handlers': ['for_security'],
+            'propagate': False,
+        },
+    }
+}
